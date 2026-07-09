@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: BB-App
+
+  datasource:
+    url: jdbc:postgresql://localhost:5433/BB_db
+    username: BB_user
+    password: BB_123
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    enabled: true
+    url: jdbc:postgresql://localhost:5433/BB_db
+    user: BB_user
+    password: BB_123
+    locations: classpath:db/migration
+    schemas: public
