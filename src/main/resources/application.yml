@@ -6,9 +6,9 @@ spring:
     name: BB-App
 
   datasource:
-    url: jdbc:postgresql://localhost:5433/BB_db
-    username: BB_user
-    password: BB_123
+    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -22,8 +22,8 @@ spring:
 
   flyway:
     enabled: true
-    url: jdbc:postgresql://localhost:5433/BB_db
-    user: BB_user
-    password: BB_123
+    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+    user: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
     locations: classpath:db/migration
     schemas: public
