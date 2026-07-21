@@ -6,6 +6,7 @@ import com.example.bb.user.model.User;
 import com.example.bb.user.model.UserRole;
 import com.example.bb.user.UserRepository;
 
+import com.example.bb.user.model.UserState;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -29,10 +30,9 @@ public class UserService {
 
     @Transactional
     public UserResponse register(UserRegRequest req){
-        String name = req.name().trim();
+
         String login = req.login().trim().toLowerCase(Locale.ROOT);
         String email = req.email().trim().toLowerCase(Locale.ROOT);
-
         if(userRepository.existsByLogin(login)){
             throw new UserExists(
                     "Пользователь с таким логином уже существует"
@@ -47,12 +47,12 @@ public class UserService {
 
         User newUser = new User();
 
-        newUser.setName(name);
-        newUser.setLogin(login);
-        newUser.setEmail(email);
+        newUser.setName(req.name());
+        newUser.setLogin(req.login());
+        newUser.setEmail(req.email());
         newUser.setPasswordHash(passwordEncoder.encode(req.password()));
         newUser.setRole(UserRole.USER);
-        newUser.setBlocked(false);
+        newUser.setState(UserState.UNBLOCKED);
 
         User savingUser = userRepository.save(newUser);
 
@@ -62,7 +62,7 @@ public class UserService {
                 savingUser.getLogin(),
                 savingUser.getEmail(),
                 savingUser.getRole(),
-                savingUser.isBlocked(),
+                savingUser.getState(),
                 savingUser.getCreatedAt()
         );
 
@@ -83,7 +83,7 @@ public class UserService {
                 user.getLogin(),
                 user.getEmail(),
                 user.getRole(),
-                user.isBlocked(),
+                user.getState(),
                 user.getCreatedAt()
         );
 

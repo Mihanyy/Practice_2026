@@ -2,6 +2,7 @@ package com.example.bb.security;
 
 import com.example.bb.user.UserRepository;
 import com.example.bb.user.model.User;
+import com.example.bb.user.model.UserState;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -25,7 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .withUsername(user.getLogin())
                 .password(user.getPasswordHash())
                 .roles(user.getRole().name())
-                .disabled(user.isBlocked())
+                .disabled(user.getState() == UserState.BLOCKED)
                 .build();
     }
 

@@ -1,6 +1,7 @@
 package com.example.bb.user.dto;
 
 import com.example.bb.user.model.UserRole;
+import com.example.bb.user.model.UserState;
 import java.time.OffsetDateTime;
 
 public record UserResponse(
@@ -9,7 +10,7 @@ public record UserResponse(
         String login,
         String email,
         UserRole role,
-        boolean blocked,
+        UserState state,
         OffsetDateTime createdAt
 ) {
 }

@@ -33,8 +33,9 @@ public class User {
     @Column(nullable = false, length = 10)
     private UserRole role;
 
-    @Column(name = "is_blocked", nullable = false)
-    private boolean blocked;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserState state;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
